@@ -57,9 +57,12 @@ class WordpressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Wordpress $wordpress)
+    public function update(Request $request, $id)
     {
-        //
+        $wp = Wordpress::find($id);
+        $wp->token = $request->token;
+        $wp->save();
+        return response()->json($wp);
     }
 
     /**
@@ -67,10 +70,18 @@ class WordpressController extends Controller
      */
     public function destroy(Wordpress $wordpress)
     {
-        //
+        $wordpress->delete();
+        return response()->json($wordpress);
     }
     public function getDataById($id){
         $wp = Wordpress::find($id);
         return response()->json($wp);
     }
+    // public function updateToken(Request $request, $id) {
+    //     $wp = Wordpress::find($id);
+    //     // dd($id);
+    //     $wp->token = $request->tokens;
+    //     $wp->save();
+    //     return response()->json($wp);
+    // }
 }

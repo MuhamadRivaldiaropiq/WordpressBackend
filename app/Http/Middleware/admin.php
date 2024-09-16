@@ -14,11 +14,19 @@ class admin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$guards): Response
     {
-        if(Auth::user()->Level != 'admin') {
-            return redirect('login');
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                $user = Auth::user();
+                if ($user->level === 'admin') {
+                    return redirect('/dashboard'); // Ganti dengan rute admin yang sesuai
+                } elseif ($user->level === 'user') {
+                    return redirect('/user/home'); // Ganti dengan rute user yang sesuai
+                }
+            }
         }
+
         return $next($request);
     }
 }

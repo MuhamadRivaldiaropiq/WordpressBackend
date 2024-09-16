@@ -17,17 +17,14 @@ use App\Http\Controllers\ArticleController;
 
 Route::get('/', function () {
     // $response = Http::get('http://contoh2.test/wp-json/wp/v2/tags');
-    $response = Http::get('http://contoh2.test/wp-json/wp/v2/tags?search=content');
-    $json = $response->getBody()->getContents();
-    $status = $response->getStatusCode();
-    $json = json_decode($json);
-    $json = $json[0];
-    $id = $json->name;
+    // $response = Http::get('http://contoh2.test/wp-json/wp/v2/tags?search=content');
+    // $json = $response->getBody()->getContents();
+    // $status = $response->getStatusCode();
+    // $json = json_decode($json);
+    // $json = $json[0];
+    // $id = $json->name;
 
-    dd($id);
-    // return ['Laravel' => app()->version()];
+    // dd($id);
+    return ['Laravel' => app()->version()];
 });
-// Route::get('articles', [ArticleController::class, 'store']);
-
-
 require __DIR__.'/auth.php';

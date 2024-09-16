@@ -25,16 +25,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('articles', ArticleController::class);
-Route::get('articles/article-by-id/{id}',[ArticleController::class,'getDataById']);
-Route::post('articles/change-status',[ArticleController::class,'changeStatus']);
-
 Route::get('wordpress/wordpress-by-id/{id}',[WordpressController::class,'getDataById']);
 
 Route::resource('users', UserController::class);
 
+Route::post('wordpress/updatetoken/{id}', [WordpressController::class, 'updateToken']);
 Route::resource('wordpress', WordpressController::class);
 
-Route::get('tagsbyId/{id}', [ArticleController::class, 'GetTagsById']);
-
-Route::get('categorybyId/{id}', [ArticleController::class, 'GetCategoryById']);
